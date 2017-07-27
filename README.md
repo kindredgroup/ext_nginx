@@ -32,7 +32,10 @@ Networking is outside the scope of this project, briefly we use bgp with [Projec
 
 
 TODO: Write here nice instructions, basically
-- git clone
+- git clone https://github.com/kubernetes/ingress to path $GOPATH/src/k8s.io
+- cd $GOPATH/src/k8s.io/controllers
+- git clone https://github.com/unibet/ext_nginx
+- cd ext_nginx
 - make build
 - copy rootfs ( binary and config ) from rootfs/nginx-ingress-controller to your server
 - make sure you have k8s config file
