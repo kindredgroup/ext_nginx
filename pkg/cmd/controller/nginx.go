@@ -37,7 +37,6 @@ import (
 	"k8s.io/ingress/controllers/nginx/pkg/config"
 	"k8s.io/ingress/core/pkg/ingress"
 	"k8s.io/ingress/core/pkg/ingress/defaults"
-	"k8s.io/ingress/core/pkg/net/dns"
 	"k8s.io/ingress/core/pkg/net/ssl"
 )
 
