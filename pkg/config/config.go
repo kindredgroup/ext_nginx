@@ -415,8 +415,8 @@ type TemplateConfig struct {
 	Servers             []*ingress.Server
 	TCPBackends         []ingress.L4Service
 	UDPBackends         []ingress.L4Service
+	HealthzURI          string
 	CustomErrors        bool
-	//	HealthzURI          string
-	Cfg           Configuration
-	IsIPV6Enabled bool
+	Cfg                 Configuration
+	IsIPV6Enabled       bool
 }
