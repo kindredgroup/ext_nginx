@@ -31,14 +31,13 @@ import (
 	"github.com/golang/glog"
 	"github.com/spf13/pflag"
 
-	api_v1 "k8s.io/client-go/pkg/api/v1"
-
+	api_v1 "k8s.io/api/core/v1"
+	ngx_template "k8s.io/ingress/controllers/ext_nginx/pkg/template"
+	"k8s.io/ingress/controllers/ext_nginx/pkg/version"
 	"k8s.io/ingress/controllers/nginx/pkg/config"
-	ngx_template "k8s.io/ingress/controllers/nginx/pkg/template"
-	"k8s.io/ingress/controllers/nginx/pkg/version"
 	"k8s.io/ingress/core/pkg/ingress"
 	"k8s.io/ingress/core/pkg/ingress/defaults"
-	//"k8s.io/ingress/core/pkg/net/dns"
+	"k8s.io/ingress/core/pkg/net/dns"
 	"k8s.io/ingress/core/pkg/net/ssl"
 )
 
