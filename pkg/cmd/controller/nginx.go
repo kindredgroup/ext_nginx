@@ -245,7 +245,7 @@ func (n *ExtNGINXController) SetListers(lister ingress.StoreLister) {
 }
 
 // UpdateIngressStatus custom Ingress status update
-func (n *NGINXController) UpdateIngressStatus(*extensions.Ingress) []api_v1.LoadBalancerIngress {
+func (n *ExtNGINXController) UpdateIngressStatus(*extensions.Ingress) []api_v1.LoadBalancerIngress {
 	return nil
 }
 
