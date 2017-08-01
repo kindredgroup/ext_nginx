@@ -192,6 +192,15 @@ func (n *ExtNGINXController) ConfigureFlags(flags *pflag.FlagSet) {
 
 // OverrideFlags customize NGINX controller flags
 func (n *ExtNGINXController) OverrideFlags(flags *pflag.FlagSet) {
+	ic, _ := flags.GetString("ingress-class")
+	//wc, _ := flags.GetString("watch-namespace")
+	if ic == "" {
+		ic = defIngressClass
+	}
+	if ic != defIngressClass {
+		glog.Warningf("only Ingress with class %v will be processed by this ingress controller", ic)
+	}
+	flags.Set("ingress-class", ic)
 }
 
 // DefaultIngressClass just return the default ingress class
