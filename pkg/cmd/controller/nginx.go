@@ -32,6 +32,7 @@ import (
 	"github.com/spf13/pflag"
 
 	api_v1 "k8s.io/api/core/v1"
+	extensions "k8s.io/api/extensions/v1beta1"
 	ngx_template "k8s.io/ingress/controllers/ext_nginx/pkg/template"
 	"k8s.io/ingress/controllers/ext_nginx/pkg/version"
 	"k8s.io/ingress/controllers/nginx/pkg/config"
@@ -241,6 +242,11 @@ func (n *ExtNGINXController) SetConfig(cmap *api_v1.ConfigMap) {
 // SetListers sets the configured store listers in the generic ingress controller
 func (n *ExtNGINXController) SetListers(lister ingress.StoreLister) {
 	n.storeLister = lister
+}
+
+// UpdateIngressStatus custom Ingress status update
+func (n *NGINXController) UpdateIngressStatus(*extensions.Ingress) []api_v1.LoadBalancerIngress {
+	return nil
 }
 
 // OnUpdate is called by syncQueue in https://github.com/aledbf/ingress-controller/blob/master/pkg/ingress/controller/controller.go#L82
