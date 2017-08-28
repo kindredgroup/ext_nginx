@@ -31,6 +31,7 @@ import (
 	"github.com/golang/glog"
 	"github.com/spf13/pflag"
 
+	api "k8s.io/api/core/v1"
 	api_v1 "k8s.io/api/core/v1"
 	extensions "k8s.io/api/extensions/v1beta1"
 	ngx_template "k8s.io/ingress/controllers/ext_nginx/pkg/template"
@@ -66,6 +67,7 @@ func newExtNGINXController() ingress.Controller {
 		binary:        ngx,
 		configmap:     &api_v1.ConfigMap{},
 		isIPV6Enabled: isIPv6Enabled(),
+		ports:         &config.ListenPorts{},
 		//		resolver:      h,
 	}
 
@@ -118,6 +120,8 @@ type ExtNGINXController struct {
 
 	// returns true if IPV6 is enabled in the pod
 	isIPV6Enabled bool
+
+	ports *config.ListenPorts
 }
 
 // Start a dummy function since we don't manage nginx start and stop in a external environment.
@@ -182,6 +186,14 @@ func (n ExtNGINXController) Info() *ingress.BackendInfo {
 		Release:    version.RELEASE,
 		Build:      version.COMMIT,
 		Repository: version.REPO,
+	}
+}
+
+func (n ExtNGINXController) DefaultEndpoint() ingress.Endpoint {
+	return ingress.Endpoint{
+		Address: "127.0.0.1",
+		Port:    fmt.Sprintf("%v", n.ports.Default),
+		Target:  &api.ObjectReference{},
 	}
 }
 
@@ -405,6 +417,7 @@ func (n *ExtNGINXController) OnUpdate(ingressCfg ingress.Configuration) error {
 		CustomErrors:        len(cfg.CustomHTTPErrors) > 0,
 		Cfg:                 cfg,
 		IsIPV6Enabled:       n.isIPV6Enabled && !cfg.DisableIpv6,
+		ListenPorts:         n.ports,
 	})
 
 	if err != nil {
