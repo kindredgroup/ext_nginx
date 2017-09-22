@@ -111,7 +111,7 @@ type ExtNGINXController struct {
 
 	configmap *api_v1.ConfigMap
 
-	storeLister ingress.StoreLister
+	storeLister *ingress.StoreLister
 
 	binary   string
 	resolver []net.IP
@@ -262,7 +262,7 @@ func (n *ExtNGINXController) SetConfig(cmap *api_v1.ConfigMap) {
 
 // SetListers sets the configured store listers in the generic ingress controller
 func (n *ExtNGINXController) SetListers(lister *ingress.StoreLister) {
-	*n.storeLister = lister
+	n.storeLister = lister
 }
 
 // UpdateIngressStatus custom Ingress status update
